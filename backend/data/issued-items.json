@@ -1,1 +1,24 @@
-[]
+[
+  {
+    "id": "ISS002",
+    "itemCode": "NOTE-001",
+    "itemName": "Notepads",
+    "numberOfItems": 30,
+    "issueDepartment": "HR",
+    "receiverName": "Jane Smith",
+    "receiverStudentStaffId": "S12346",
+    "description": "Notepads for meetings",
+    "createdAt": "2025-01-14T14:20:00.000Z"
+  },
+  {
+    "id": "ISS001",
+    "itemCode": "PEN-001",
+    "itemName": "Ballpoint Pens",
+    "numberOfItems": 50,
+    "issueDepartment": "Admin",
+    "receiverName": "John Doe",
+    "receiverStudentStaffId": "S12345",
+    "description": "Pens for office use",
+    "createdAt": "2025-01-07T10:30:00.000Z"
+  }
+]

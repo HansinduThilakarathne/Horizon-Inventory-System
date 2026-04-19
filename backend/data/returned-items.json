@@ -1,1 +1,22 @@
-[]
+[
+  {
+    "id": "RET002",
+    "itemCode": "NOTE-001",
+    "itemName": "Notepads",
+    "numberOfItems": 15,
+    "returnedBy": "Jane Smith",
+    "returnedById": "S12346",
+    "condition": "Damage",
+    "createdAt": "2025-01-22T09:45:00.000Z"
+  },
+  {
+    "id": "RET001",
+    "itemCode": "PEN-001",
+    "itemName": "Ballpoint Pens",
+    "numberOfItems": 20,
+    "returnedBy": "John Doe",
+    "returnedById": "S12345",
+    "condition": "Good",
+    "createdAt": "2025-01-20T11:15:00.000Z"
+  }
+]

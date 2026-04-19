@@ -3,10 +3,10 @@
     "_id": "STA0001",
     "name": "Battery AA",
     "category": "Batteries",
-    "quantity": 38,
+    "quantity": 47,
     "supplier": "General",
     "createdAt": "2026-04-18T00:00:00.000Z",
-    "cost": 0
+    "cost": 100
   },
   {
     "_id": "STA0002",
@@ -21,7 +21,7 @@
     "_id": "STA0003",
     "name": "Book GRN",
     "category": "Books",
-    "quantity": 0,
+    "quantity": 10,
     "supplier": "General",
     "createdAt": "2026-04-18T00:00:00.000Z",
     "cost": 500

@@ -66,8 +66,32 @@
     "reason": "fddfdffdfd",
     "requestedBy": "ffdfdfdfd",
     "requestedById": "fdfdfdfdf",
-    "status": "Pending",
+    "status": "Approved",
     "senderRole": "Staff",
     "createdAt": "2026-04-19T09:44:00.710Z"
+  },
+  {
+    "_id": "1776596937375",
+    "itemCode": "STA0011",
+    "itemName": "Clear Bags",
+    "quantity": 500,
+    "reason": "mmmmmmmmmmmmmmm",
+    "requestedBy": "lishani",
+    "requestedById": "l@gmail.com",
+    "status": "Pending",
+    "senderRole": "Staff",
+    "createdAt": "2026-04-19T11:08:57.365Z"
+  },
+  {
+    "_id": "1776598038308",
+    "itemCode": "STA0003",
+    "itemName": "Book GRN",
+    "quantity": 10,
+    "reason": "ffeffwrwwv   ",
+    "requestedBy": "mn",
+    "requestedById": "nm@gmail.com",
+    "status": "Pending",
+    "senderRole": "Staff",
+    "createdAt": "2026-04-19T11:27:18.299Z"
   }
 ]

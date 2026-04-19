@@ -42,13 +42,24 @@ const Inventory = () => {
 
   const handleCreateSubmit = async (e) => {
     e.preventDefault();
-    if (!newItem.itemCode || !newItem.name || !newItem.category || !newItem.quantity) return toast.error('Please fill all fields');
+    
+    if (!newItem.itemCode.trim() || !newItem.name.trim() || !newItem.category.trim() || !newItem.quantity) {
+      return toast.error('Please fill all required fields');
+    }
+    
+    if (Number(newItem.quantity) <= 0) {
+      return toast.error('Quantity must be greater than 0');
+    }
+
+    setLoading(true);
+
     try {
       const res = await fetch('http://localhost:5000/api/inventory', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          _id: newItem.itemCode,
+          _id: newItem.itemCode.toUpperCase(),
+          id: newItem.itemCode.toUpperCase(),
           name: newItem.name,
           category: newItem.category,
           quantity: Number(newItem.quantity),
@@ -56,7 +67,11 @@ const Inventory = () => {
           supplier: 'General'
         })
       });
-      if(!res.ok) throw new Error('Database write error');
+      
+      if(!res.ok) {
+        const error = await res.text();
+        throw new Error(error || 'Failed to add item');
+      }
       
       toast.success('Item added successfully to inventory!');
       setShowAddForm(false);
@@ -65,22 +80,34 @@ const Inventory = () => {
       // Refresh inventory
       const invRes = await fetch('http://localhost:5000/api/inventory');
       if (invRes.ok) setInventory(await invRes.json());
+      
+      setLoading(false);
     } catch (e) {
-      console.error(e);
-      toast.error('Failed to add item to inventory');
+      console.error('Add item error:', e);
+      toast.error('Failed to add item: ' + e.message);
+      setLoading(false);
     }
   };
 
   const handleDelete = async (id) => {
+    if (!window.confirm('Are you sure you want to delete this item? This action cannot be undone.')) {
+      return;
+    }
+
     try {
       const res = await fetch('http://localhost:5000/api/inventory/' + id, {
         method: 'DELETE'
       });
       if(!res.ok) throw new Error('Delete failed');
-      toast.error('Item completely deleted from MongoDB');
+      
+      toast.success('Item deleted successfully!');
+      
+      // Refresh inventory
+      const invRes = await fetch('http://localhost:5000/api/inventory');
+      if (invRes.ok) setInventory(await invRes.json());
     } catch (e) {
       console.error(e);
-      toast.error('Failed to delete item from Database');
+      toast.error('Failed to delete item');
     }
   };
 
@@ -149,7 +176,7 @@ const Inventory = () => {
             className={styles.searchInput}
           />
         </div>
-        <button onClick={() => setShowAddForm(true)} style={{backgroundColor: 'var(--color-primary)', color: 'white', border: 'none', marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem'}}>
+        <button onClick={() => setShowAddForm(true)} style={{backgroundColor: '#3b82f6', color: 'white', border: 'none', marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0.6rem 1.2rem', borderRadius: '8px', fontWeight: '600', cursor: 'pointer', fontSize: '0.95rem', transition: 'all 0.3s ease'}}>
           <AiOutlinePlus /> Add Item
         </button>
       </div>
@@ -157,32 +184,69 @@ const Inventory = () => {
       {showAddForm && (
         <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
-            <h3 style={{marginBottom: '1rem', color: 'var(--text-main)'}}>Add New Inventory Item</h3>
+            <h3 style={{marginBottom: '1.5rem', color: 'var(--text-main)', fontSize: '1.3rem', fontWeight: '700'}}>Add New Inventory Item</h3>
             <form onSubmit={handleCreateSubmit} style={{display: 'flex', flexDirection: 'column', gap: '1.2rem'}}>
                <div>
-                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Item Code</label>
-                 <input placeholder="Enter item code" value={newItem.itemCode} onChange={(e) => setNewItem({...newItem, itemCode: e.target.value})} style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'white', fontSize: '0.95rem', boxSizing: 'border-box'}} required />
+                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Item Code *</label>
+                 <input 
+                   placeholder="e.g., PEN-001" 
+                   value={newItem.itemCode} 
+                   onChange={(e) => setNewItem({...newItem, itemCode: e.target.value})} 
+                   style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)', fontSize: '0.95rem', boxSizing: 'border-box', transition: 'all 0.3s ease'}} 
+                   required 
+                 />
                </div>
                <div>
-                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Item Name</label>
-                 <input placeholder="Enter item name" value={newItem.name} onChange={(e) => setNewItem({...newItem, name: e.target.value})} style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'white', fontSize: '0.95rem', boxSizing: 'border-box'}} required />
+                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Item Name *</label>
+                 <input 
+                   placeholder="e.g., Ballpoint Pens" 
+                   value={newItem.name} 
+                   onChange={(e) => setNewItem({...newItem, name: e.target.value})} 
+                   style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)', fontSize: '0.95rem', boxSizing: 'border-box', transition: 'all 0.3s ease'}} 
+                   required 
+                 />
                </div>
                <div>
-                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Category</label>
-                 <input placeholder="Enter category" value={newItem.category} onChange={(e) => setNewItem({...newItem, category: e.target.value})} style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'white', fontSize: '0.95rem', boxSizing: 'border-box'}} required />
+                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Category *</label>
+                 <input 
+                   placeholder="e.g., Stationery" 
+                   value={newItem.category} 
+                   onChange={(e) => setNewItem({...newItem, category: e.target.value})} 
+                   style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)', fontSize: '0.95rem', boxSizing: 'border-box', transition: 'all 0.3s ease'}} 
+                   required 
+                 />
                </div>
                <div>
-                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Quantity</label>
-                 <input type="number" min="1" placeholder="Enter quantity" value={newItem.quantity} onChange={(e) => setNewItem({...newItem, quantity: e.target.value})} style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'white', fontSize: '0.95rem', boxSizing: 'border-box'}} required />
+                 <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Quantity *</label>
+                 <input 
+                   type="number" 
+                   min="1" 
+                   placeholder="Enter quantity" 
+                   value={newItem.quantity} 
+                   onChange={(e) => setNewItem({...newItem, quantity: e.target.value})} 
+                   style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)', fontSize: '0.95rem', boxSizing: 'border-box', transition: 'all 0.3s ease'}} 
+                   required 
+                 />
                </div>
                <div>
                  <label style={{display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '600', color: 'var(--text-muted)'}}>Unit Cost (LKR)</label>
-                 <input type="number" min="0" step="0.01" placeholder="Enter unit cost" value={newItem.cost} onChange={(e) => setNewItem({...newItem, cost: e.target.value})} style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'white', fontSize: '0.95rem', boxSizing: 'border-box'}} />
+                 <input 
+                   type="number" 
+                   min="0" 
+                   step="0.01" 
+                   placeholder="Enter unit cost" 
+                   value={newItem.cost} 
+                   onChange={(e) => setNewItem({...newItem, cost: e.target.value})} 
+                   style={{width: '100%', padding: '0.8rem', background: 'var(--bg-input)', border: '1px solid var(--border-color)', borderRadius: '8px', color: 'var(--text-main)', fontSize: '0.95rem', boxSizing: 'border-box', transition: 'all 0.3s ease'}} 
+                 />
                </div>
-               <div style={{display: 'flex', gap: '1rem', marginTop: '1rem'}}>
-                  <button type="submit" style={{flex: 1, padding: '0.9rem', borderRadius: '8px', fontWeight: '600', fontSize: '0.95rem', cursor: 'pointer'}}>Save Item</button>
-                  <button type="button" onClick={() => setShowAddForm(false)} style={{flex: 1, padding: '0.9rem', background: 'var(--bg-input)', color: 'var(--text-main)', borderRadius: '8px', fontWeight: '600', fontSize: '0.95rem', cursor: 'pointer', border: '1px solid var(--border-color)'}}>Cancel</button>
+               <div style={{display: 'flex', gap: '1rem', marginTop: '1.5rem'}}>
+                  <button type="submit" disabled={loading} style={{flex: 1, padding: '0.9rem', borderRadius: '8px', fontWeight: '600', fontSize: '0.95rem', cursor: loading ? 'not-allowed' : 'pointer', background: '#27ae60', color: 'white', border: 'none', transition: 'all 0.3s ease', opacity: loading ? 0.6 : 1}}>
+                    {loading ? 'Adding...' : 'Add Item'}
+                  </button>
+                  <button type="button" onClick={() => setShowAddForm(false)} style={{flex: 1, padding: '0.9rem', background: 'var(--bg-input)', color: 'var(--text-main)', borderRadius: '8px', fontWeight: '600', fontSize: '0.95rem', cursor: 'pointer', border: '1px solid var(--border-color)', transition: 'all 0.3s ease'}}>Cancel</button>
                </div>
+               <p style={{fontSize: '0.8rem', color: 'var(--text-muted)', marginTop: '0.5rem'}}>Fields marked with * are required</p>
             </form>
           </div>
         </div>
