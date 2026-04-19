@@ -1,0 +1,144 @@
+# FINAL STARTUP INSTRUCTIONS
+
+## ⚡ QUICK RUN - Copy & Paste These Commands
+
+### Option 1: Run in Two Separate Windows (Recommended)
+
+**WINDOW 1 - Start Backend:**
+```
+cd "d:\Campus\Final Ye\horizon-inventory\backend" && npm start
+```
+
+**WINDOW 2 - Start Frontend:**
+```
+cd "d:\Campus\Final Ye\horizon-inventory" && npm run dev
+```
+
+### Option 2: Run Batch File
+Double-click: `start-all.bat`
+
+---
+
+## ✅ VERIFICATION CHECKLIST
+
+After running the commands, verify:
+
+- [ ] **Backend Terminal** shows:
+  ```
+  ✅ Backend Server running at http://localhost:5000
+  💾 Using JSON file storage
+  ```
+
+- [ ] **Frontend Terminal** shows:
+  ```
+  VITE v8.0.3 ready in XXX ms
+  ➜ Local: http://localhost:5173/
+  ```
+
+- [ ] **Open Browser** and visit:
+  - http://localhost:5173/ (should see login page)
+  - http://localhost:5000 (should return JSON response)
+
+---
+
+## 📍 ACCESSING THE APP
+
+**Frontend:** http://localhost:5173  
+**Backend API:** http://localhost:5000  
+
+1. Click "Sign up here" or navigate to `/register`
+2. Fill registration form
+3. Click "REGISTER NEW ACCOUNT"
+4. Go to Login page
+5. Enter credentials and login
+6. Access dashboard and features
+
+---
+
+## 🆘 TROUBLESHOOTING
+
+### Problem: "Port 5000/5173 already in use"
+
+**Solution - Kill existing processes:**
+```powershell
+Get-Process node | Stop-Process -Force
+```
+
+Then restart the servers.
+
+### Problem: "Can't reach http://localhost:5173"
+
+**Solution - Check if Vite is running:**
+- Frontend terminal should show "VITE v8.0.3 ready"
+- If not, run: `npm run dev`
+
+### Problem: "Registration fails with error"
+
+**Solution - Check if backend is running:**
+- Backend terminal should show "Backend Server running"
+- If not, run: `npm start` in backend folder
+
+### Problem: "npm: command not found"
+
+**Solution - Install Node.js:**
+1. Download from https://nodejs.org/
+2. Install Node.js (includes npm)
+3. Restart terminal
+4. Try again
+
+---
+
+## 🎯 EXPECTED BEHAVIOR
+
+**Registration Page:**
+- Should load at http://localhost:5173/register
+- Form has 5 fields: Name, Email, Phone, Role, Password
+- Submit button says "REGISTER NEW ACCOUNT"
+- After registration, redirects to login
+
+**Login Page:**
+- Email and password fields
+- Role dropdown (Admin/Staff)
+- "Sign up here" link at bottom
+
+**Dashboard (After Login):**
+- Shows inventory statistics
+- Navigation menu on left sidebar
+- Logout button in top right
+- Multiple pages: Inventory, Reports, Users, Settings, etc.
+
+---
+
+## 📊 DATA STORAGE
+
+All user data stored in: `backend/data/users.json`
+
+**To Reset All Data:**
+Delete the `backend/data/` folder, then:
+- Restart servers
+- New data folder will be auto-created
+
+---
+
+## 🎉 YOU'RE ALL SET!
+
+Follow the steps above and you should have:
+- ✅ Backend server running (Port 5000)
+- ✅ Frontend server running (Port 5173)
+- ✅ Application loaded and ready to use
+- ✅ Can register and login
+- ✅ Can access all features
+
+**Estimated time to startup: 10-15 seconds total**
+
+---
+
+## 📝 NOTES
+
+- Both servers must be running for the app to work
+- Backend handles all API requests and data
+- Frontend is the user interface
+- Keep both terminal windows open while using the app
+- To stop: Press Ctrl+C in each terminal
+
+**System is ready! 🚀**

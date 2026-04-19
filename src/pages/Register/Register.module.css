@@ -1,0 +1,131 @@
+.registerContainer {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(rgba(10, 17, 40, 0.7), rgba(10, 17, 40, 0.7)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') no-repeat center center/cover;
+}
+
+.glassCard {
+  background: rgba(30, 30, 30, 0.65); /* Made slightly lighter/cleaner glass for more premium feel */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 3rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 450px;
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.logoArea {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.logoArea h1 {
+  font-size: 1.8rem;
+  color: var(--text-main);
+  margin-bottom: 0.2rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.logoArea p {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
+
+.formGroup {
+  width: 100%;
+  margin-bottom: 1.2rem;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.formGroup input,
+.formGroup select {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(0,0,0,0.3);
+  color: var(--text-main);
+  font-size: 1rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.formGroup input:focus,
+.formGroup select:focus {
+  border-color: var(--color-primary);
+  background: rgba(0,0,0,0.5);
+  box-shadow: 0 0 0 3px rgba(74, 124, 42, 0.3);
+}
+
+.registerBtn {
+  width: 100%;
+  padding: 0.9rem;
+  border-radius: 8px;
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: none;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(74, 124, 42, 0.4);
+}
+
+.registerBtn:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(74, 124, 42, 0.6);
+}
+
+.registerBtn:active {
+  transform: translateY(1px);
+}
+
+.links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.loginLink {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition: color 0.3s;
+  cursor: pointer;
+}
+
+.loginLink span {
+  color: #5dade2; /* primary blue accent */
+  font-weight: 600;
+}
+
+.loginLink:hover span {
+  text-decoration: underline;
+}

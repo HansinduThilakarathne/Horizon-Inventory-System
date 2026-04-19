@@ -1,0 +1,108 @@
+.formContainer {
+  background-color: var(--bg-card);
+  border-radius: 12px;
+  padding: 2.5rem;
+  border: 1px solid var(--border-color);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 2rem;
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.formInput {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+.formInput:focus {
+  border-color: var(--color-primary);
+}
+
+.formTextarea {
+  background-color: var(--bg-input);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+  min-height: 120px;
+  resize: vertical;
+}
+
+.formTextarea:focus {
+  border-color: var(--color-primary);
+}
+
+select.formInput {
+  appearance: none;
+  /* Add custom dropdown arrow here if needed */
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.btnConfirm {
+  background-color: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btnConfirm:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btnReset {
+  background-color: transparent;
+  color: white;
+  border: 1px solid var(--border-color);
+  background-color: #444;
+  font-weight: 600;
+  padding: 0.8rem 2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.btnReset:hover {
+  background-color: #555;
+}

@@ -1,0 +1,56 @@
+[
+  {
+    "_id": "1776454906802",
+    "name": "chamikara",
+    "email": "chamikara@gmail.com",
+    "phone": "+94773954248",
+    "role": "Admin",
+    "password": "$2a$10$0BGZV5LtkER92h3ibX7uEeeM5ADj/e35J0MMOuc87ULvAxbwrR/l2",
+    "createdAt": "2026-04-17T19:41:46.802Z"
+  },
+  {
+    "_id": "1776455057272",
+    "name": "chamikara",
+    "email": "chami@gmail.com",
+    "phone": "+94722133339",
+    "role": "Admin",
+    "password": "$2a$10$HO88Ekk/YOxK/djmf9X7j.BqpGcsQhwkCCmCA/KBUdvwYhMt6hkE2",
+    "createdAt": "2026-04-17T19:44:17.272Z"
+  },
+  {
+    "_id": "1776455494579",
+    "name": "sahan",
+    "email": "s@gmail.com",
+    "phone": "+94722133101",
+    "role": "Staff",
+    "password": "$2a$10$lQ1nxvve5nQpfwA0rr07rOY55sQ.yS6BQcvBKv26WM5j5LqCIn2tq",
+    "createdAt": "2026-04-17T19:51:34.579Z"
+  },
+  {
+    "_id": "1776491255058",
+    "name": "udesh",
+    "email": "ude@gmail.com",
+    "phone": "+94711063046",
+    "role": "Admin",
+    "password": "$2a$10$580ULcShbUVpz2Q5Id6U1uHiE.6uCWqpXuyp5l1pCaB0MmivJvfUm",
+    "createdAt": "2026-04-18T05:47:35.058Z"
+  },
+  {
+    "_id": "1776492129047",
+    "name": "asara",
+    "email": "asara@gmail.com",
+    "phone": "+94722133101",
+    "role": "Admin",
+    "password": "$2a$10$eLrj.dfuvcqCe3SGBBsYZ.QLTJVb5.DRTJf/LLS5CzcZ5.PvDYLOe",
+    "createdAt": "2026-04-18T06:02:09.048Z"
+  },
+  {
+    "_id": "1776493665130",
+    "name": "dahami",
+    "email": "d@gmail.com",
+    "phone": "+94722133338",
+    "role": "Staff",
+    "password": "$2a$10$m/ZQE8phG0j3AaVlfx19HOugFUBUX1mhX0lz3BbnhQsX.7auUQjVq",
+    "createdAt": "2026-04-18T06:27:45.130Z"
+  }
+]

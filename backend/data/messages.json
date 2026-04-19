@@ -1,0 +1,29 @@
+[
+  {
+    "_id": "1776495716957",
+    "name": "dfdfdfd",
+    "email": "sahannavinda2001@gmail.com",
+    "message": "dfdfdfdfdfdfd",
+    "senderRole": "Admin",
+    "status": "Unread",
+    "createdAt": "2026-04-18T07:01:56.957Z"
+  },
+  {
+    "_id": "1776495082704",
+    "name": "dgdgdgdgdgd",
+    "email": "hansinduthilakarathne1852@gmail.com",
+    "message": "gfgffgfgfgfgffgfgfgf",
+    "senderRole": "Admin",
+    "status": "Unread",
+    "createdAt": "2026-04-18T06:51:22.704Z"
+  },
+  {
+    "_id": "1776493911472",
+    "name": "hhtrhtrhythtr ",
+    "email": "hansinduthilakarathne1852@gmail.com",
+    "message": "ghrthrtvfdvrvg brtgtrgrtgrtg",
+    "senderRole": "Staff",
+    "status": "Unread",
+    "createdAt": "2026-04-18T06:31:51.472Z"
+  }
+]

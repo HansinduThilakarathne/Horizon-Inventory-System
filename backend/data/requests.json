@@ -1,0 +1,37 @@
+[
+  {
+    "_id": "1776494894285",
+    "itemCode": "STA0004",
+    "itemName": "Book Po",
+    "quantity": 100,
+    "reason": "fefesfsggrgrgrgfsfgegf",
+    "requestedBy": "rrrgrgrrgr",
+    "requestedById": "grggfgfgfgfgfggfg",
+    "status": "Approved",
+    "createdAt": "2026-04-18T06:48:14.283Z"
+  },
+  {
+    "_id": "1776495171334",
+    "itemCode": "STA0002",
+    "itemName": "Battery AAA",
+    "quantity": 10,
+    "reason": "",
+    "requestedBy": "dgdgdgdgdg",
+    "requestedById": "gdgdgdgdgdgdgd",
+    "status": "Approved",
+    "senderRole": "Admin",
+    "createdAt": "2026-04-18T06:52:51.332Z"
+  },
+  {
+    "_id": "1776495511582",
+    "itemCode": "STA0004",
+    "itemName": "Book Po",
+    "quantity": 5,
+    "reason": "dfdfdfdfdf",
+    "requestedBy": "dfdfdfdfdfdfd",
+    "requestedById": "dfdfdfdfdfdf",
+    "status": "Approved",
+    "senderRole": "Admin",
+    "createdAt": "2026-04-18T06:58:31.573Z"
+  }
+]
