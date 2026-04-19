@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from '../../components/Form.module.css';
 import { toast } from 'react-toastify';
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../../firebase';
 
 const ReturnItem = () => {
   const [inventory, setInventory] = useState([]);
@@ -49,17 +47,24 @@ const ReturnItem = () => {
     }
 
     try {
-      await addDoc(collection(db, 'transactions'), {
-        type: 'Return',
+      // Save returned item to backend
+      const returnData = {
         itemCode: formData.itemCode,
         itemName: formData.itemName,
-        quantity: Number(formData.quantity),
+        numberOfItems: Number(formData.quantity),
         returnedBy: formData.returnedBy,
         returnedById: formData.returnedById,
         condition: formData.condition,
-        date: new Date().toISOString(),
-        status: 'Returned'
+        date: new Date().toISOString()
+      };
+
+      const returnRes = await fetch('http://localhost:5000/api/returned-items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(returnData)
       });
+
+      if (!returnRes.ok) throw new Error('Failed to save returned item');
 
       // Update inventory quantity - add returned items back
       if (formData.itemCode) {
@@ -74,7 +79,7 @@ const ReturnItem = () => {
         }
       }
 
-      toast.success(`${formData.quantity} items successfully returned and inventory updated!`);
+      toast.success(`${formData.quantity} items successfully returned and saved to database!`);
       handleReset();
     } catch (err) {
       toast.error('Failed to return item: ' + err.message);

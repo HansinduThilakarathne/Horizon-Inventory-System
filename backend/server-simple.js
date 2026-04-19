@@ -22,6 +22,8 @@ let users = [];
 let inventory = [];
 let messages = [];
 let requests = [];
+let issuedItems = [];
+let returnedItems = [];
 
 // Load data from files if they exist
 const loadData = () => {
@@ -30,6 +32,8 @@ const loadData = () => {
     const inventoryFile = path.join(__dirname, 'data', 'inventory.json');
     const messagesFile = path.join(__dirname, 'data', 'messages.json');
     const requestsFile = path.join(__dirname, 'data', 'requests.json');
+    const issuedItemsFile = path.join(__dirname, 'data', 'issued-items.json');
+    const returnedItemsFile = path.join(__dirname, 'data', 'returned-items.json');
     
     if (!fs.existsSync(path.join(__dirname, 'data'))) {
       fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true });
@@ -39,6 +43,8 @@ const loadData = () => {
     if (fs.existsSync(inventoryFile)) inventory = JSON.parse(fs.readFileSync(inventoryFile, 'utf8'));
     if (fs.existsSync(messagesFile)) messages = JSON.parse(fs.readFileSync(messagesFile, 'utf8'));
     if (fs.existsSync(requestsFile)) requests = JSON.parse(fs.readFileSync(requestsFile, 'utf8'));
+    if (fs.existsSync(issuedItemsFile)) issuedItems = JSON.parse(fs.readFileSync(issuedItemsFile, 'utf8'));
+    if (fs.existsSync(returnedItemsFile)) returnedItems = JSON.parse(fs.readFileSync(returnedItemsFile, 'utf8'));
   } catch (err) {
     console.log('📝 Starting with empty data stores');
   }
@@ -54,6 +60,8 @@ const saveData = () => {
   fs.writeFileSync(path.join(dataDir, 'inventory.json'), JSON.stringify(inventory, null, 2));
   fs.writeFileSync(path.join(dataDir, 'messages.json'), JSON.stringify(messages, null, 2));
   fs.writeFileSync(path.join(dataDir, 'requests.json'), JSON.stringify(requests, null, 2));
+  fs.writeFileSync(path.join(dataDir, 'issued-items.json'), JSON.stringify(issuedItems, null, 2));
+  fs.writeFileSync(path.join(dataDir, 'returned-items.json'), JSON.stringify(returnedItems, null, 2));
 };
 
 loadData();
@@ -206,7 +214,51 @@ app.put('/api/requests/:id', async (req, res) => {
   } catch (err) { res.status(500).json({ error: err.message }); }
 });
 
+// ==========================================
+// 5. ISSUED ITEMS APIs
+// ==========================================
+app.get('/api/issued-items', async (req, res) => {
+  try {
+    res.json(issuedItems.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/issued-items', async (req, res) => {
+  try {
+    const newIssue = {
+      _id: Date.now().toString(),
+      ...req.body,
+      createdAt: new Date().toISOString()
+    };
+    issuedItems.push(newIssue);
+    saveData();
+    res.status(201).json(newIssue);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+// ==========================================
+// 6. RETURNED ITEMS APIs
+// ==========================================
+app.get('/api/returned-items', async (req, res) => {
+  try {
+    res.json(returnedItems.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
+app.post('/api/returned-items', async (req, res) => {
+  try {
+    const newReturn = {
+      _id: Date.now().toString(),
+      ...req.body,
+      createdAt: new Date().toISOString()
+    };
+    returnedItems.push(newReturn);
+    saveData();
+    res.status(201).json(newReturn);
+  } catch (err) { res.status(500).json({ error: err.message }); }
+});
+
 app.listen(PORT, () => {
   console.log(`✅ Backend Server running at http://localhost:${PORT}`);
-  console.log(`💾 Using JSON file storage (data/users.json, data/inventory.json, data/messages.json, data/requests.json)`);
+  console.log(`💾 Using JSON file storage (data/users.json, data/inventory.json, data/messages.json, data/requests.json, data/issued-items.json, data/returned-items.json)`);
 });

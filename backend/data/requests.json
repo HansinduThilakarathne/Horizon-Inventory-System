@@ -33,5 +33,41 @@
     "status": "Approved",
     "senderRole": "Admin",
     "createdAt": "2026-04-18T06:58:31.573Z"
+  },
+  {
+    "_id": "1776591716438",
+    "itemCode": "STA0004",
+    "itemName": "Book Po",
+    "quantity": 50,
+    "reason": "dsdsdsdsdsdsds",
+    "requestedBy": "lishani",
+    "requestedById": "l@gmail.com",
+    "status": "Rejected",
+    "senderRole": "Staff",
+    "createdAt": "2026-04-19T09:41:56.432Z"
+  },
+  {
+    "_id": "1776591741340",
+    "itemCode": "STA0003",
+    "itemName": "Book GRN",
+    "quantity": 20,
+    "reason": "dsdsdsssxzsdsds",
+    "requestedBy": "lishani",
+    "requestedById": "l@gmail.com",
+    "status": "Approved",
+    "senderRole": "Staff",
+    "createdAt": "2026-04-19T09:42:21.331Z"
+  },
+  {
+    "_id": "1776591840714",
+    "itemCode": "STA0067",
+    "itemName": "Pencil",
+    "quantity": 10,
+    "reason": "fddfdffdfd",
+    "requestedBy": "ffdfdfdfd",
+    "requestedById": "fdfdfdfdf",
+    "status": "Pending",
+    "senderRole": "Staff",
+    "createdAt": "2026-04-19T09:44:00.710Z"
   }
 ]

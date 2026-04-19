@@ -4,6 +4,7 @@ import styles from './Dashboard.module.css';
 
 const Dashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All');
   const [inventory, setInventory] = useState([]);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,17 @@ const Dashboard = () => {
   const lowStockItems = inventory.filter(item => Number(item.quantity) > 0 && Number(item.quantity) < 10).length;
   const outOfStock = inventory.filter(item => Number(item.quantity) === 0).length;
   const totalValue = inventory.reduce((acc, item) => acc + ((Number(item.quantity) || 0) * (Number(item.cost) || 0)), 0);
+
+  // Get unique categories from inventory
+  const categories = ['All', ...new Set(inventory.map(item => item.category).filter(Boolean))].sort();
+
+  // Filter inventory by search term and category
+  const filteredInventory = inventory.filter(item => {
+    const matchesSearch = item.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         (item._id || item.id)?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === 'All' || item.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className={styles.dashboardContainer}>
@@ -97,10 +109,14 @@ const Dashboard = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <select className={styles.categorySelect}>
-              <option value="All">All Categories</option>
-              <option value="Furniture">Furniture</option>
-              <option value="Electronic">Electronic</option>
+            <select 
+              className={styles.categorySelect}
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map(cat => (
+                <option key={cat} value={cat}>{cat}</option>
+              ))}
             </select>
           </div>
         </div>
@@ -117,7 +133,7 @@ const Dashboard = () => {
               </tr>
             </thead>
             <tbody>
-              {inventory.slice(0, 3).map((item) => (
+              {filteredInventory.slice(0, 3).map((item) => (
                 <tr key={item._id || item.id}>
                   <td>{(item._id || item.id).slice(0, 6)}</td>
                   <td>{item.name}</td>
@@ -133,7 +149,7 @@ const Dashboard = () => {
         </div>
         
         <div className={styles.pagination}>
-          <span>Showing 1 to 3 of 100 Items</span>
+          <span>Showing 1 to {Math.min(3, filteredInventory.length)} of {filteredInventory.length} Items</span>
           <div className={styles.paginationControls}>
             <button className={styles.pageBtn}>Previous</button>
             <button className={`${styles.pageBtn} ${styles.active}`}>1</button>

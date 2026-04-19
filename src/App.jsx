@@ -13,6 +13,7 @@ import AddQuantity from './pages/AddQuantity/AddQuantity';
 import IssueItem from './pages/IssueItem/IssueItem';
 import ReturnItem from './pages/ReturnItem/ReturnItem';
 import RequestItem from './pages/RequestItem/RequestItem';
+import RequestItems from './pages/RequestItems/RequestItems';
 import Reports from './pages/Reports/Reports';
 import User from './pages/User/User';
 import ContactUs from './pages/ContactUs/ContactUs';
@@ -61,6 +62,7 @@ function App() {
           <Route path="issue-item" element={<IssueItem />} />
           <Route path="return-item" element={<ReturnItem />} />
           <Route path="request-item" element={<RequestItem />} />
+          <Route path="request-items" element={<RequestItems />} />
           <Route path="reports" element={localStorage.getItem('userRole') === 'Admin' ? <Reports /> : <Navigate to="/inventory" />} />
           <Route path="user" element={localStorage.getItem('userRole') === 'Admin' ? <User /> : <Navigate to="/inventory" />} />
           <Route path="contact-us" element={<ContactUs />} />

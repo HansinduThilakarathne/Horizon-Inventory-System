@@ -85,6 +85,14 @@ const Sidebar = () => {
         >
           Return Item
         </NavLink>
+        {role === 'Staff' && (
+          <NavLink 
+            to="/request-items" 
+            className={({ isActive }) => isActive ? `${styles.navItem} ${styles.activeNavItem}` : styles.navItem}
+          >
+            Request Items
+          </NavLink>
+        )}
         {role === 'Admin' && (
           <NavLink 
             to="/request-item" 

@@ -9,6 +9,7 @@ const RequestItem = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [loading, setLoading] = useState(true);
   const [showAddRequestModal, setShowAddRequestModal] = useState(false);
+  const [userRole, setUserRole] = useState(localStorage.getItem('userRole') || 'Staff');
   const [formData, setFormData] = useState({
     itemCode: '',
     itemName: '',
@@ -20,6 +21,9 @@ const RequestItem = () => {
 
   // Fetch inventory and requests
   useEffect(() => {
+    const role = localStorage.getItem('userRole') || 'Staff';
+    setUserRole(role);
+
     const fetchData = async () => {
       try {
         const invRes = await fetch('http://localhost:5000/api/inventory');
@@ -34,12 +38,28 @@ const RequestItem = () => {
       }
     };
     fetchData();
+    const interval = setInterval(fetchData, 4000);
+    return () => clearInterval(interval);
   }, []);
 
-  const filteredRequests = requests.filter(req =>
-    req.itemName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    req.itemCode?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Filter requests based on user role
+  const getFilteredRequests = () => {
+    let filtered = requests.filter(req =>
+      req.itemName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      req.itemCode?.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
+    // If staff, only show their own pending and approved requests
+    if (userRole === 'Staff') {
+      const staffName = localStorage.getItem('userName') || '';
+      filtered = filtered.filter(req => 
+        req.requestedBy === staffName && (req.status === 'Pending' || req.status === 'Approved')
+      );
+    }
+    return filtered;
+  };
+  
+  const filteredRequests = getFilteredRequests();
 
   const handleItemSelect = (e) => {
     const selectedItem = inventory.find(item => (item._id || item.id) === e.target.value);
@@ -163,14 +183,19 @@ const RequestItem = () => {
       <div className={styles.header}>
         <div>
           <h1>Item Requests Management</h1>
-          <p>Manage and approve inventory requests from staff members</p>
+          <p>{userRole === 'Admin' ? 'Manage and approve inventory requests from staff members' : 'View your requests and their status'}</p>
         </div>
-        <button 
-          className={styles.addBtn}
-          onClick={() => setShowAddRequestModal(true)}
-        >
-          <AiOutlinePlus /> New Request
-        </button>
+        {userRole === 'Staff' && (
+          <button 
+            className={styles.addBtn}
+            onClick={() => setShowAddRequestModal(true)}
+          >
+            <AiOutlinePlus /> New Request
+          </button>
+        )}
+        {userRole === 'Admin' && (
+          <span style={{fontSize: '0.9rem', color: 'var(--text-muted)'}}>Role: Admin (Can approve/reject)</span>
+        )}
       </div>
 
       {/* Search Bar */}
@@ -222,7 +247,7 @@ const RequestItem = () => {
                   </td>
                   <td>
                     <div className={styles.actions}>
-                      {req.status === 'Pending' && (
+                      {req.status === 'Pending' && userRole === 'Admin' && (
                         <>
                           <button 
                             className={styles.approveBtn}
@@ -239,6 +264,9 @@ const RequestItem = () => {
                             <AiOutlineCloseCircle />
                           </button>
                         </>
+                      )}
+                      {(req.status !== 'Pending' || userRole === 'Staff') && (
+                        <span style={{fontSize: '0.85rem', color: 'var(--text-muted)'}}>-</span>
                       )}
                     </div>
                   </td>

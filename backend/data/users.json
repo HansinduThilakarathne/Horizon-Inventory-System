@@ -52,5 +52,23 @@
     "role": "Staff",
     "password": "$2a$10$m/ZQE8phG0j3AaVlfx19HOugFUBUX1mhX0lz3BbnhQsX.7auUQjVq",
     "createdAt": "2026-04-18T06:27:45.130Z"
+  },
+  {
+    "_id": "1776591537010",
+    "name": "Hansindu Thilakarathne",
+    "email": "hansinduthilakarathne1852@gmail.com",
+    "phone": "0766667513",
+    "role": "Admin",
+    "password": "$2a$10$Uwmoc5E5lzAaMYBu9nNscuTAN1Vu.aFIp4W4MNkmAXWFWAWiuBnRO",
+    "createdAt": "2026-04-19T09:38:57.011Z"
+  },
+  {
+    "_id": "1776591662700",
+    "name": "lishani",
+    "email": "l@gmail.com",
+    "phone": "0767777513",
+    "role": "Staff",
+    "password": "$2a$10$IYeQJWJRcdRZvM05iIAGvudiXqaDBr.aI4h5vQORJrKUaxedzzJ4.",
+    "createdAt": "2026-04-19T09:41:02.700Z"
   }
 ]

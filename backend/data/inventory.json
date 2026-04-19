@@ -21,7 +21,7 @@
     "_id": "STA0003",
     "name": "Book GRN",
     "category": "Books",
-    "quantity": 5,
+    "quantity": 0,
     "supplier": "General",
     "createdAt": "2026-04-18T00:00:00.000Z",
     "cost": 500

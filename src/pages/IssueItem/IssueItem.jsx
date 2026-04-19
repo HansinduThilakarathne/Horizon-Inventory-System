@@ -47,11 +47,24 @@ const IssueItem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addDoc(collection(db, 'issuedItems'), {
+      // Save issued item to backend
+      const issueData = {
         ...formData,
         numberOfItems: Number(formData.numberOfItems),
+        itemCode: formData.itemCode,
+        itemName: formData.itemName,
+        staffAdminId: formData.staffAdminId,
+        issuedBy: localStorage.getItem('userName') || 'Admin',
         date: new Date().toISOString()
+      };
+
+      const issueRes = await fetch('http://localhost:5000/api/issued-items', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(issueData)
       });
+
+      if (!issueRes.ok) throw new Error('Failed to save issued item');
       
       // Update inventory quantity
       if (formData.itemCode) {
@@ -66,7 +79,7 @@ const IssueItem = () => {
         }
       }
 
-      toast.success('Item issued successfully!');
+      toast.success('Item issued successfully and saved to database!');
       handleReset();
     } catch (error) {
       toast.error('Error issuing item: ' + error.message);
